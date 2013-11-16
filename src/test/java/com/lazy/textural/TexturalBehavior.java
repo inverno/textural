@@ -21,6 +21,9 @@ public class TexturalBehavior {
         Textural textural = new Textural("src/test/images/black.png");
         textural.print(100,100);
         assertEquals(0xff000000, textural.retrieveImage().getRGB(0, 0));
+        assertEquals(0xff000000, textural.retrieveImage().getRGB(99, 0));
+        assertEquals(0xff000000, textural.retrieveImage().getRGB(0, 99));
+        assertEquals(0xff000000, textural.retrieveImage().getRGB(99, 99));
     }
 
 }
