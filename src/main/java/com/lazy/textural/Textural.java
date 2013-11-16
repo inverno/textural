@@ -2,20 +2,23 @@ package com.lazy.textural;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Textural {
-    private String name;
+
+    private final String name;
 
     public Textural(String name) {
         this.name = name;
     }
 
-    public void print(int x0, int y0, int width, int height) {
-        File output = new File(name);
+    public void print(int width, int height) {
         try {
-            ImageIO.write(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB), "bmp", output);
+            FileOutputStream output = new FileOutputStream(name);
+            final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            for(int x = 0; x < width; x++) {for(int y = 0; y < height; y++) {image.setRGB(x, y, 0xff000000);}}
+            ImageIO.write(image, "PNG", output);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
