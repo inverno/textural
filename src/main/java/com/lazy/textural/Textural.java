@@ -2,6 +2,7 @@ package com.lazy.textural;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -22,5 +23,9 @@ public class Textural {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public BufferedImage retrieveImage() throws IOException {
+        return ImageIO.read(new FileInputStream(name));
     }
 }
