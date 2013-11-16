@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class TexturalBehavior {
 
     private final String images = "src/test/images/";
-    private final int black = 0xff000000;
+    private final int transparent = 0x00000000;
 
     @Before
     public void cleanImages() throws IOException {
@@ -21,14 +21,14 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void printsBlackTexture() throws IOException {
-        Textural textural = new Textural(images + "black.png");
+    public void printsTransparentTexture() throws IOException {
+        Textural textural = new Textural(images + "transparent.png");
         textural.print(100,100);
-        final BufferedImage blackTexture = textural.retrieveImage();
-        assertEquals(black, blackTexture.getRGB(0, 0));
-        assertEquals(black, blackTexture.getRGB(99, 0));
-        assertEquals(black, blackTexture.getRGB(0, 99));
-        assertEquals(black, blackTexture.getRGB(99, 99));
+        final BufferedImage transparentTexture = textural.retrieveImage();
+        assertEquals(transparent, transparentTexture.getRGB(0, 0));
+        assertEquals(transparent, transparentTexture.getRGB(99, 0));
+        assertEquals(transparent, transparentTexture.getRGB(0, 99));
+        assertEquals(transparent, transparentTexture.getRGB(99, 99));
     }
 
 }

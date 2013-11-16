@@ -18,7 +18,7 @@ public class Textural {
         try {
             FileOutputStream output = new FileOutputStream(name);
             final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            for(int x = 0; x < width; x++) {for(int y = 0; y < height; y++) {image.setRGB(x, y, 0xff000000);}}
+            for(int x = 0; x < width; x++) {for(int y = 0; y < height; y++) {image.setRGB(x, y, 0x00000000);}}
             ImageIO.write(image, "PNG", output);
         } catch (IOException e) {
             throw new RuntimeException(e);
