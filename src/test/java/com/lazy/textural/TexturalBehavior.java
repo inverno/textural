@@ -1,7 +1,7 @@
 package com.lazy.textural;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.awt.image.BufferedImage;
@@ -12,17 +12,16 @@ import static org.junit.Assert.assertEquals;
 
 public class TexturalBehavior {
 
-    private final String images = "src/test/images/";
-    private final int transparent = 0x00000000;
-    private final int blue = 0x00ff0000;
+    private static final String images = "src/test/images/";
 
-    @Before
-    public void cleanImages() throws IOException {
+    @BeforeClass
+    public static void cleanImages() throws IOException {
         FileUtils.cleanDirectory(new File(images));
     }
 
     @Test
     public void printsTransparentTexture() throws IOException {
+        int transparent = 0x00000000;
         Textural textural = new Textural(images + "transparent.png");
         textural.print(100,100);
         final BufferedImage transparentTexture = textural.retrieveImage();
@@ -33,7 +32,8 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void printsFlatBlue() throws Exception {
+    public void printsFlatColor() throws Exception {
+        int blue = 0xff0000ff;
         Textural textural = new Textural(images + "blue.png");
         textural.color(blue).print(100, 100);
         final BufferedImage blueTexture = textural.retrieveImage();
