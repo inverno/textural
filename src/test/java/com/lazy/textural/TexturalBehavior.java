@@ -24,11 +24,7 @@ public class TexturalBehavior {
         int transparent = 0x00000000;
         Textural textural = new Textural(images + "transparent.png");
         textural.print(100,100);
-        final BufferedImage transparentTexture = textural.retrieveImage();
-        assertEquals(transparent, transparentTexture.getRGB(0, 0));
-        assertEquals(transparent, transparentTexture.getRGB(99, 0));
-        assertEquals(transparent, transparentTexture.getRGB(0, 99));
-        assertEquals(transparent, transparentTexture.getRGB(99, 99));
+        assertColorEquals(transparent, textural.retrieveImage());
     }
 
     @Test
@@ -36,7 +32,14 @@ public class TexturalBehavior {
         int blue = 0xff0000ff;
         Textural textural = new Textural(images + "blue.png");
         textural.color(blue).print(100, 100);
-        final BufferedImage blueTexture = textural.retrieveImage();
-        assertEquals(blue, blueTexture.getRGB(0,0));
+        assertColorEquals(blue, textural.retrieveImage());
+    }
+
+    private void assertColorEquals(int color, BufferedImage image) {
+        for(int x = 0; x < 100; x++) {
+            for(int y = 0; y < 100; y++) {
+                assertEquals("Pixel[" + x + "," + y + "]", color, image.getRGB(x, y));
+            }
+        }
     }
 }

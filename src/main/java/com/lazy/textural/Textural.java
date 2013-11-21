@@ -20,11 +20,15 @@ public class Textural {
         try {
             FileOutputStream output = new FileOutputStream(name);
             final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            for(int x = 0; x < width; x++) {for(int y = 0; y < height; y++) {image.setRGB(x, y, this.baseColor);}}
+            paintRectangle(width, height, image);
             ImageIO.write(image, "PNG", output);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void paintRectangle(int width, int height, BufferedImage image) {
+        for(int x = 0; x < width; x++) {for(int y = 0; y < height; y++) {image.setRGB(x, y, this.baseColor);}}
     }
 
     public BufferedImage retrieveImage() throws IOException {
