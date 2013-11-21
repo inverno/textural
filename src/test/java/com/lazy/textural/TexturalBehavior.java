@@ -35,11 +35,28 @@ public class TexturalBehavior {
         assertColorEquals(blue, textural.retrieveImage());
     }
 
+    @Test
+    public void printsInnerRectangle() throws Exception {
+        int red = 0xffff0000;
+        Textural textural = new Textural(images + "rectangle.png");
+        textural.rectanglePattern(10).color(red).print(100, 100);
+        final BufferedImage image = textural.retrieveImage();
+        assertPixelEquals(red, image, 10, 10);
+        assertPixelEquals(red, image, 10, 50);
+        assertPixelEquals(red, image, 90, 90);
+        assertPixelEquals(red, image, 90, 50);
+        assertPixelEquals(0x00000000, image, 0, 0);
+    }
+
     private void assertColorEquals(int color, BufferedImage image) {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {
-                assertEquals("Pixel[" + x + "," + y + "]", color, image.getRGB(x, y));
+                assertPixelEquals(color, image, x, y);
             }
         }
+    }
+
+    private void assertPixelEquals(int color, BufferedImage image, int x, int y) {
+        assertEquals("Pixel[" + x + "," + y + "]", color, image.getRGB(x, y));
     }
 }
