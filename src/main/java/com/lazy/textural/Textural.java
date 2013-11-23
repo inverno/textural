@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Textural {
 
     private final String name;
-    private Pattern pattern = new Background(this);
+    private Pattern pattern = new Background();
     private int baseColor;
 
     public Textural(String name) {
@@ -18,18 +18,14 @@ public class Textural {
     }
 
     public void print(int width, int height) {
+        final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        pattern.paint(new Brush(image, baseColor), width, height);
         try {
             FileOutputStream output = new FileOutputStream(name);
-            final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            pattern.paint(width, height, image);
             ImageIO.write(image, "PNG", output);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    void paintPixel(BufferedImage image, int x, int y) {
-        image.setRGB(x, y, this.baseColor);
     }
 
     public BufferedImage retrieveImage() throws IOException {
@@ -42,7 +38,7 @@ public class Textural {
     }
 
     public Textural rectanglePattern(float distanceFromBorder) {
-        this.pattern = new Rectangle(this, distanceFromBorder);
+        this.pattern = new Rectangle(distanceFromBorder);
         return this;
     }
 }
