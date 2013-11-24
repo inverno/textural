@@ -1,29 +1,11 @@
 package com.lazy.textural;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
+import static com.lazy.textural.ImageAssert.assertColorEquals;
+import static com.lazy.textural.ImageAssert.assertPixelColorEquals;
 
 public class TexturalBehavior {
-
-    private static final String images = "src/test/images/";
-
-    @BeforeClass
-    public static void cleanImages() throws IOException {
-        FileUtils.cleanDirectory(new File(images));
-    }
-
-    @Test
-    public void printsTransparentTexture() throws IOException {
-        final String transparentFileName = images + "transparent.png";
-        new Textural().generate(100, 100).storeAsPNG(transparentFileName);
-        assertColorEquals(0x00000000, Rendering.retrieveImage(transparentFileName));
-    }
 
     @Test
     public void generatesFlatImage() throws Exception {
@@ -56,15 +38,4 @@ public class TexturalBehavior {
         assertPixelColorEquals(blue, composedTexture, 20, 20);
     }
 
-    private void assertColorEquals(int color, Rendering image) {
-        for(int x = 0; x < 100; x++) {
-            for(int y = 0; y < 100; y++) {
-                assertPixelColorEquals(color, image, x, y);
-            }
-        }
-    }
-
-    private void assertPixelColorEquals(int color, Rendering image, int x, int y) {
-        assertEquals("Pixel[" + x + "," + y + "]", color, image.getRGB(x, y));
-    }
 }
