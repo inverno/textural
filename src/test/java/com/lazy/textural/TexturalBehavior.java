@@ -48,6 +48,19 @@ public class TexturalBehavior {
         assertPixelEquals(0x00000000, image, 0, 0);
     }
 
+    @Test
+    public void combinesWithAnotherTexture() throws Exception {
+        final Textural component1 = new Textural(images + "component1.png");
+        component1.rectanglePattern(10).color(0xff0000ff);
+        final Textural component2 = new Textural(images + "component2.png");
+        component2.rectanglePattern(20).color(0xffff0000);
+        Textural composition = component1.add(component2);
+        composition.print(100,100);
+        final BufferedImage composedTexture = composition.retrieveImage();
+        assertPixelEquals(0xff0000ff, composedTexture, 10, 10);
+        assertPixelEquals(0xffff0000, composedTexture, 20, 20);
+    }
+
     private void assertColorEquals(int color, BufferedImage image) {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {
