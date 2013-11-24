@@ -21,59 +21,52 @@ public class TexturalBehavior {
 
     @Test
     public void printsTransparentTexture() throws IOException {
-        int transparent = 0x00000000;
         final String transparentFileName = images + "transparent.png";
         Textural textural = new Textural();
-        textural.print(100,100, transparentFileName);
-        assertColorEquals(transparent, textural.retrieveImage(transparentFileName));
+        textural.print(100, 100, transparentFileName);
+        assertColorEquals(0x00000000, textural.retrieveImage(transparentFileName));
     }
 
     @Test
-    public void printsFlatColor() throws Exception {
+    public void generatesFlatImage() throws Exception {
         int blue = 0xff0000ff;
-        final String blueFileName = images + "blue.png";
-        Textural textural = new Textural();
-        textural.color(blue).print(100, 100, blueFileName);
-        assertColorEquals(blue, textural.retrieveImage(blueFileName));
+        Textural textural = new Textural(new Background(), blue);
+        assertColorEquals(blue, textural.generate(100, 100));
     }
 
     @Test
     public void printsInnerRectangle() throws Exception {
         int red = 0xffff0000;
-        final String rectangleFileName = images + "rectangle.png";
-        Textural textural = new Textural();
-        textural.rectanglePattern(10).color(red).print(100, 100, rectangleFileName);
-        final BufferedImage image = textural.retrieveImage(rectangleFileName);
-        assertPixelEquals(red, image, 10, 10);
-        assertPixelEquals(red, image, 10, 50);
-        assertPixelEquals(red, image, 90, 90);
-        assertPixelEquals(red, image, 90, 50);
-        assertPixelEquals(0x00000000, image, 0, 0);
+        Textural textural = new Textural(new Rectangle(10), red);
+        final BufferedImage image = textural.generate(100, 100);
+        assertPixelColorEquals(red, image, 10, 10);
+        assertPixelColorEquals(red, image, 10, 50);
+        assertPixelColorEquals(red, image, 90, 90);
+        assertPixelColorEquals(red, image, 90, 50);
+        assertPixelColorEquals(0x00000000, image, 0, 0);
     }
 
     @Test
     public void combinesWithAnotherTexture() throws Exception {
-        final Textural component1 = new Textural();
-        component1.rectanglePattern(10).color(0xff0000ff);
-        final Textural component2 = new Textural();
-        component2.rectanglePattern(20).color(0xffff0000);
+        final int red = 0xff0000ff;
+        final Textural component1 = new Textural(new Rectangle(10), red);
+        final int blue = 0xffff0000;
+        final Textural component2 = new Textural(new Rectangle(20), blue);
         Textural composition = component1.add(component2);
-        final String compositionFileName = images + "composition.png";
-        composition.print(100,100, compositionFileName);
-        final BufferedImage composedTexture = composition.retrieveImage(compositionFileName);
-        assertPixelEquals(0xff0000ff, composedTexture, 10, 10);
-        assertPixelEquals(0xffff0000, composedTexture, 20, 20);
+        final BufferedImage composedTexture = composition.generate(100, 100);
+        assertPixelColorEquals(red, composedTexture, 10, 10);
+        assertPixelColorEquals(blue, composedTexture, 20, 20);
     }
 
     private void assertColorEquals(int color, BufferedImage image) {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {
-                assertPixelEquals(color, image, x, y);
+                assertPixelColorEquals(color, image, x, y);
             }
         }
     }
 
-    private void assertPixelEquals(int color, BufferedImage image, int x, int y) {
+    private void assertPixelColorEquals(int color, BufferedImage image, int x, int y) {
         assertEquals("Pixel[" + x + "," + y + "]", color, image.getRGB(x, y));
     }
 }

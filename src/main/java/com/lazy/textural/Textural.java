@@ -10,16 +10,24 @@ import java.util.List;
 
 public class Textural {
 
-    private Pattern pattern = new Background();
+    private Pattern pattern;
     private int baseColor;
     private List<Textural> components = new ArrayList<Textural>();
 
     public Textural() {
-        this.baseColor = 0x00000000;
+        this(new Background(), 0x00000000);
+    }
+
+    public Textural(Pattern pattern, int baseColor) {
+        this.pattern = pattern;
+        this.baseColor = baseColor;
     }
 
     public void print(int width, int height, String fileName) {
-        final BufferedImage image = generate(width, height);
+        storeAsPNG(fileName, generate(width, height));
+    }
+
+    public void storeAsPNG(String fileName, BufferedImage image) {
         try {
             FileOutputStream output = new FileOutputStream(fileName);
             ImageIO.write(image, "PNG", output);
@@ -28,7 +36,7 @@ public class Textural {
         }
     }
 
-    private BufferedImage generate(int width, int height) {
+    public BufferedImage generate(int width, int height) {
         final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         for(Textural component : components) {
             final BufferedImage componentImage = component.generate(width, height);
@@ -42,16 +50,6 @@ public class Textural {
 
     public BufferedImage retrieveImage(String fileName) throws IOException {
         return ImageIO.read(new FileInputStream(fileName));
-    }
-
-    public Textural color(int color) {
-        this.baseColor = color;
-        return this;
-    }
-
-    public Textural rectanglePattern(float distanceFromBorder) {
-        this.pattern = new Rectangle(distanceFromBorder);
-        return this;
     }
 
     public Textural add(Textural other) {
