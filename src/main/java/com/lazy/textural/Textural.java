@@ -10,20 +10,18 @@ import java.util.List;
 
 public class Textural {
 
-    private final String name;
     private Pattern pattern = new Background();
     private int baseColor;
     private List<Textural> components = new ArrayList<Textural>();
 
-    public Textural(String name) {
-        this.name = name;
+    public Textural() {
         this.baseColor = 0x00000000;
     }
 
-    public void print(int width, int height) {
+    public void print(int width, int height, String fileName) {
         final BufferedImage image = generate(width, height);
         try {
-            FileOutputStream output = new FileOutputStream(name);
+            FileOutputStream output = new FileOutputStream(fileName);
             ImageIO.write(image, "PNG", output);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -42,8 +40,8 @@ public class Textural {
         return image;
     }
 
-    public BufferedImage retrieveImage() throws IOException {
-        return ImageIO.read(new FileInputStream(name));
+    public BufferedImage retrieveImage(String fileName) throws IOException {
+        return ImageIO.read(new FileInputStream(fileName));
     }
 
     public Textural color(int color) {
@@ -57,7 +55,7 @@ public class Textural {
     }
 
     public Textural add(Textural other) {
-        final Textural combination = new Textural("combination.png");
+        final Textural combination = new Textural();
         combination.components.add(this);
         combination.components.add(other);
         return combination;
