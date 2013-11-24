@@ -4,7 +4,6 @@ import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,9 +21,8 @@ public class TexturalBehavior {
     @Test
     public void printsTransparentTexture() throws IOException {
         final String transparentFileName = images + "transparent.png";
-        Textural textural = new Textural();
-        textural.print(100, 100, transparentFileName);
-        assertColorEquals(0x00000000, textural.retrieveImage(transparentFileName));
+        new Textural().generate(100, 100).storeAsPNG(transparentFileName);
+        assertColorEquals(0x00000000, Rendering.retrieveImage(transparentFileName));
     }
 
     @Test
@@ -35,10 +33,10 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void printsInnerRectangle() throws Exception {
+    public void generatesInnerRectangle() throws Exception {
         int red = 0xffff0000;
         Textural textural = new Textural(new Rectangle(10), red);
-        final BufferedImage image = textural.generate(100, 100);
+        final Rendering image = textural.generate(100, 100);
         assertPixelColorEquals(red, image, 10, 10);
         assertPixelColorEquals(red, image, 10, 50);
         assertPixelColorEquals(red, image, 90, 90);
@@ -53,12 +51,12 @@ public class TexturalBehavior {
         final int blue = 0xffff0000;
         final Textural component2 = new Textural(new Rectangle(20), blue);
         Textural composition = component1.add(component2);
-        final BufferedImage composedTexture = composition.generate(100, 100);
+        final Rendering composedTexture = composition.generate(100, 100);
         assertPixelColorEquals(red, composedTexture, 10, 10);
         assertPixelColorEquals(blue, composedTexture, 20, 20);
     }
 
-    private void assertColorEquals(int color, BufferedImage image) {
+    private void assertColorEquals(int color, Rendering image) {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {
                 assertPixelColorEquals(color, image, x, y);
@@ -66,7 +64,7 @@ public class TexturalBehavior {
         }
     }
 
-    private void assertPixelColorEquals(int color, BufferedImage image, int x, int y) {
+    private void assertPixelColorEquals(int color, Rendering image, int x, int y) {
         assertEquals("Pixel[" + x + "," + y + "]", color, image.getRGB(x, y));
     }
 }
