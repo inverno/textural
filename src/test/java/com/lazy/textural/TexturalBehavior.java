@@ -15,9 +15,9 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void generatesInnerRectangle() throws Exception {
+    public void generatesBorder() throws Exception {
         int red = 0xffff0000;
-        Textural textural = new Textural(new Rectangle(10), red);
+        Textural textural = new Textural(new Border(10), red);
         final Rendering image = textural.generate(100, 100);
         assertPixelColorEquals(red, image, 10, 10);
         assertPixelColorEquals(red, image, 10, 50);
@@ -28,14 +28,14 @@ public class TexturalBehavior {
 
     @Test
     public void combinesWithAnotherTexture() throws Exception {
-        final int red = 0xff0000ff;
-        final Textural component1 = new Textural(new Rectangle(10), red);
-        final int blue = 0xffff0000;
-        final Textural component2 = new Textural(new Rectangle(20), blue);
+        final int blue = 0xff0000ff;
+        final int red = 0xffff0000;
+        final Textural component1 = new Textural(new Border(10), blue);
+        final Textural component2 = new Textural(new Border(20), red);
         Textural composition = component1.add(component2);
         final Rendering composedTexture = composition.generate(100, 100);
-        assertPixelColorEquals(red, composedTexture, 10, 10);
-        assertPixelColorEquals(blue, composedTexture, 20, 20);
+        assertPixelColorEquals(blue, composedTexture, 10, 10);
+        assertPixelColorEquals(red, composedTexture, 20, 20);
     }
 
 }

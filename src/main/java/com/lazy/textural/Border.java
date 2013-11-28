@@ -1,10 +1,10 @@
 package com.lazy.textural;
 
-public class Rectangle implements Pattern {
+public class Border implements Pattern {
 
     private final float relativeDistanceFromBorder;
 
-    public Rectangle(float relativeDistanceFromBorder) {
+    public Border(float relativeDistanceFromBorder) {
         this.relativeDistanceFromBorder = relativeDistanceFromBorder;
     }
 
