@@ -38,4 +38,11 @@ public class TexturalBehavior {
         assertPixelColorEquals(red, composedTexture, 20, 20);
     }
 
+    @Test
+    public void generatesANonSquareTexture() throws Exception {
+        final int violet = 0xffff00ff;
+        final Textural textural = new Textural(new Background(), violet);
+        final Rendering slimRendering = textural.generate(10, 100);
+        assertColorEquals(violet, slimRendering);
+    }
 }
