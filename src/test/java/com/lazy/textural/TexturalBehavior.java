@@ -65,6 +65,5 @@ public class TexturalBehavior {
         assertPixelColorEquals(black, rendering, 5, 5);
         assertPixelColorEquals(black, rendering, 9, 9);
 
-        rendering.storeAsPNG("checker.png");
     }
 }
