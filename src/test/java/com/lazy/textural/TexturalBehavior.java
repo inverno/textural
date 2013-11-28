@@ -16,6 +16,9 @@ public class TexturalBehavior {
         Textural textural = new Textural("black");
         textural.print(100,100);
         BufferedImage texture = ImageIO.read(new File("black.bmp"));
-        assertEquals(0, texture.getRGB(0, 0));
+        assertEquals(0xff000000, texture.getRGB(0, 0));
+        assertEquals(0xff000000, texture.getRGB(99, 0));
+        assertEquals(0xff000000, texture.getRGB(0, 99));
+        assertEquals(0xff000000, texture.getRGB(99, 99));
     }
 }
