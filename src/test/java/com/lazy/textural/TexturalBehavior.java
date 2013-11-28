@@ -15,23 +15,23 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void combinesWithAnotherTexture() throws Exception {
-        final int blue = 0xff0000ff;
-        final int red = 0xffff0000;
-        final Textural component1 = new Textural(new Border(10), blue);
-        final Textural component2 = new Textural(new Border(20), red);
-        Textural composition = component1.add(component2);
-        final Rendering composedTexture = composition.generate(100, 100);
-        assertPixelColorEquals(blue, composedTexture, 10, 10);
-        assertPixelColorEquals(red, composedTexture, 20, 20);
-    }
-
-    @Test
     public void generatesNonSquareTexture() throws Exception {
         final int violet = 0xffff00ff;
         final Textural textural = new Textural(new Background(), violet);
         final Rendering slimRendering = textural.generate(10, 100);
         assertColorEquals(violet, slimRendering, 10, 100);
+    }
+
+    @Test
+    public void combinesWithAnotherTexture() throws Exception {
+        final int blue = 0xff0000ff;
+        final int red = 0xffff0000;
+        final int violet = blue + red;
+        final Textural component1 = new Textural(new Background(), blue);
+        final Textural component2 = new Textural(new Background(), red);
+        Textural composition = component1.add(component2);
+        final Rendering composedTexture = composition.generate(100, 100);
+        assertColorEquals(violet, composedTexture, 100, 100);
     }
 
     @Test
@@ -52,7 +52,5 @@ public class TexturalBehavior {
 
         assertPixelColorEquals(black, rendering, 5, 5);
         assertPixelColorEquals(black, rendering, 9, 9);
-
-        rendering.storeAsPNG("checker.png");
     }
 }

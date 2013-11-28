@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
 public class BorderBehavior {
 
     @Test
-    public void generatesBorder() throws Exception {
+    public void iteratesAlongTheFrame() throws Exception {
         final List<Pixel> pixels = new Border(0).iterate(10, 10);
         assertEquals(40, pixels.size());
         assertThat(pixels, hasItem(new Pixel(0, 0)));
@@ -23,4 +23,15 @@ public class BorderBehavior {
         assertThat(pixels, not(hasItem(new Pixel(8,8))));
     }
 
+    @Test
+    public void iterates2PixelsAwayFromFrame() throws Exception {
+        final List<Pixel> pixels = new Border(20).iterate(10, 10);
+        assertEquals(24, pixels.size());
+        assertThat(pixels, hasItem(new Pixel(2, 2)));
+        assertThat(pixels, hasItem(new Pixel(2, 7)));
+        assertThat(pixels, hasItem(new Pixel(7, 2)));
+        assertThat(pixels, hasItem(new Pixel(7,7)));
+        assertThat(pixels, not(hasItem(new Pixel(1, 1))));
+        assertThat(pixels, not(hasItem(new Pixel(6, 6))));
+    }
 }
