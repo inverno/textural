@@ -9,7 +9,6 @@ import java.io.IOException;
 public class Textural {
 
     private final String name;
-    private Pattern pattern = new Background(this);
     private int baseColor;
 
     public Textural(String name) {
@@ -21,15 +20,15 @@ public class Textural {
         try {
             FileOutputStream output = new FileOutputStream(name);
             final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            pattern.paint(width, height, image);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    image.setRGB(x, y, this.baseColor);
+                }
+            }
             ImageIO.write(image, "PNG", output);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    void paintPixel(BufferedImage image, int x, int y) {
-        image.setRGB(x, y, this.baseColor);
     }
 
     public BufferedImage retrieveImage() throws IOException {
@@ -41,8 +40,7 @@ public class Textural {
         return this;
     }
 
-    public Textural rectanglePattern(float distanceFromBorder) {
-        this.pattern = new Rectangle(this, distanceFromBorder);
+    public Textural rectanglePattern(int distanceFromFrame) {
         return this;
     }
 }
