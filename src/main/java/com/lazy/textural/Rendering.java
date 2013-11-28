@@ -21,4 +21,27 @@ public class Rendering {
         ImageIO.write(image, "PNG", new FileOutputStream(fileName));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+
+        Rendering rendering = (Rendering) o;
+
+        if(image.equals(rendering.image)) return true;
+        if(!(image.getWidth() == rendering.image.getWidth())) return false;
+        if(!(image.getHeight() == rendering.image.getHeight())) return false;
+        for(int x = 0; x < image.getWidth(); x++) {
+            for(int y = 0; y < image.getHeight(); y++) {
+                if(image.getRGB(x, y) != rendering.image.getRGB(x, y)) return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return image.hashCode();
+    }
 }
