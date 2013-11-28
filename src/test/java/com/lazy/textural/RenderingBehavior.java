@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static com.lazy.textural.ImageAssert.assertColorEquals;
+import static org.junit.Assert.assertEquals;
 
 public class RenderingBehavior {
 
@@ -23,7 +23,8 @@ public class RenderingBehavior {
     @Test
     public void printsPNG() throws IOException {
         final String transparentFileName = images + "transparent.png";
-        new Textural().generate(100, 100).storeAsPNG(transparentFileName);
-        assertColorEquals(0x00000000, new Rendering(ImageIO.read(new FileInputStream(transparentFileName))), 100, 100);
+        final Rendering rendering = new Textural().generate(100, 100);
+        rendering.storeAsPNG(transparentFileName);
+        assertEquals(rendering, new Rendering(ImageIO.read(new FileInputStream(transparentFileName))));
     }
 }
