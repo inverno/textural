@@ -19,8 +19,8 @@ public class BorderBehavior {
         assertThat(pixels, hasItem(new Pixel(0, 9)));
         assertThat(pixels, hasItem(new Pixel(9, 0)));
         assertThat(pixels, hasItem(new Pixel(9, 9)));
-        assertThat(pixels, not(hasItem(new Pixel(1,1))));
-        assertThat(pixels, not(hasItem(new Pixel(8,8))));
+        assertThat(pixels, not(hasItem(new Pixel(1, 1))));
+        assertThat(pixels, not(hasItem(new Pixel(8, 8))));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class BorderBehavior {
         assertThat(pixels, hasItem(new Pixel(2, 2)));
         assertThat(pixels, hasItem(new Pixel(2, 7)));
         assertThat(pixels, hasItem(new Pixel(7, 2)));
-        assertThat(pixels, hasItem(new Pixel(7,7)));
+        assertThat(pixels, hasItem(new Pixel(7, 7)));
         assertThat(pixels, not(hasItem(new Pixel(1, 1))));
         assertThat(pixels, not(hasItem(new Pixel(6, 6))));
     }
