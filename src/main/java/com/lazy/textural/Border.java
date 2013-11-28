@@ -16,8 +16,8 @@ public class Border implements Pattern {
         final List<Pixel> pixels = new ArrayList<>();
         int xMin = Math.round(width * relativeDistanceFromFrame / 100);
         int yMin = Math.round(height * relativeDistanceFromFrame / 100);
-        int xMax = width - xMin;
-        int yMax = height - yMin;
+        int xMax = width - 1 - xMin;
+        int yMax = height - 1 - yMin;
         for (int x = xMin; x <= xMax; x++) {
             pixels.add(new Pixel(x, yMin));
             pixels.add(new Pixel(x, yMax));

@@ -8,22 +8,10 @@ import static com.lazy.textural.ImageAssert.assertPixelColorEquals;
 public class TexturalBehavior {
 
     @Test
-    public void generatesFlatImage() throws Exception {
+    public void generatesASquareTexture() throws Exception {
         int blue = 0xff0000ff;
         Textural textural = new Textural(new Background(), new FlatBrush(blue));
         assertColorEquals(blue, textural.generate(100, 100), 100, 100);
-    }
-
-    @Test
-    public void generatesBorder() throws Exception {
-        int red = 0xffff0000;
-        Textural textural = new Textural(new Border(10), red);
-        final Rendering image = textural.generate(100, 100);
-        assertPixelColorEquals(red, image, 10, 10);
-        assertPixelColorEquals(red, image, 10, 50);
-        assertPixelColorEquals(red, image, 90, 90);
-        assertPixelColorEquals(red, image, 90, 50);
-        assertPixelColorEquals(0x00000000, image, 0, 0);
     }
 
     @Test
