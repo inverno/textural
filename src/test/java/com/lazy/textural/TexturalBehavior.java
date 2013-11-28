@@ -52,9 +52,19 @@ public class TexturalBehavior {
         final int yellow = 0xffffff00;
         final Textural textural = new Textural(new Background(), new CheckeredBrush(black, yellow, 5, 5));
         final Rendering rendering = textural.generate(20, 20);
+
         assertPixelColorEquals(black, rendering, 0, 0);
         assertPixelColorEquals(black, rendering, 4, 4);
-        assertPixelColorEquals(yellow, rendering, 5, 5);
-        assertPixelColorEquals(yellow, rendering, 9, 9);
+
+        assertPixelColorEquals(yellow, rendering, 5, 0);
+        assertPixelColorEquals(yellow, rendering, 9, 4);
+
+        assertPixelColorEquals(yellow, rendering, 0, 5);
+        assertPixelColorEquals(yellow, rendering, 4, 9);
+
+        assertPixelColorEquals(black, rendering, 5, 5);
+        assertPixelColorEquals(black, rendering, 9, 9);
+
+        rendering.storeAsPNG("checker.png");
     }
 }
