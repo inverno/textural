@@ -3,6 +3,11 @@ package com.lazy.textural;
 import org.junit.Test;
 
 import static com.lazy.textural.ImageAssert.assertColorEquals;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class TexturalBehavior {
 
@@ -31,6 +36,14 @@ public class TexturalBehavior {
         Textural composition = component1.add(component2);
         final Rendering composedTexture = composition.generate(100, 100);
         assertColorEquals(violet, composedTexture, 100, 100);
+    }
+
+    @Test
+    public void mockolo() {
+        Brush brush = mock(Brush.class);
+        when(brush.paint(new Pixel(1,1))).thenReturn(0xff990099);
+        assertThat(brush.paint(new Pixel(1,1)), is(0xff990099));
+        verify(brush).paint(new Pixel(1,1));
     }
 
 }
