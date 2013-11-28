@@ -14,7 +14,7 @@ public class TexturalBehavior {
     @Test
     public void printsBlackTexture() throws IOException {
         Textural textural = new Textural("black");
-        textural.print(0,100,0,100);
+        textural.print(100,100);
         BufferedImage texture = ImageIO.read(new File("black.bmp"));
         assertEquals(0, texture.getRGB(0, 0));
     }
