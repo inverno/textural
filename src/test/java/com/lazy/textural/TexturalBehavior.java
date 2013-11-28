@@ -39,7 +39,7 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void generatesANonSquareTexture() throws Exception {
+    public void generatesNonSquareTexture() throws Exception {
         final int violet = 0xffff00ff;
         final Textural textural = new Textural(new Background(), violet);
         final Rendering slimRendering = textural.generate(10, 100);

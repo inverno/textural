@@ -25,18 +25,21 @@ public class Textural {
     }
 
     public Rendering generate(int width, int height) {
-        final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        final Rendering rendering = new Rendering(image);
+        final Rendering rendering = new Rendering(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB));
         for(Textural component : components) {
             final Rendering componentImage = component.generate(width, height);
-            new Background().paint(new ImageAddBrush(image, componentImage), width, height);
+            applyBrushOnPattern(width, height, rendering, new Background(), new ImageAddBrush(rendering, componentImage));
         }
         if(components.isEmpty()) {
-            for(Pixel pixel : pattern.iterate(width, height)) {
-                rendering.set(pixel, brush.paint(pixel));
-            }
+            applyBrushOnPattern(width, height, rendering, pattern, brush);
         }
         return rendering;
+    }
+
+    private void applyBrushOnPattern(int width, int height, Rendering rendering, Pattern pattern, Brush brush) {
+        for(Pixel pixel : pattern.iterate(width, height)) {
+            rendering.set(pixel, brush.paint(pixel));
+        }
     }
 
     public Textural add(Textural other) {

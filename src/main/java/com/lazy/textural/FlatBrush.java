@@ -8,10 +8,7 @@ public class FlatBrush implements Brush {
         this.color = color;
     }
 
-    public void paintPixel(int x, int y) {
-        throw new UnsupportedOperationException("Deprecated");
-    }
-
+    @Override
     public int paint(Pixel pixel) {
         return color;
     }

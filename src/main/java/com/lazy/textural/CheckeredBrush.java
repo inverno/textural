@@ -1,6 +1,6 @@
 package com.lazy.textural;
 
-public class CheckeredBrush implements Brush{
+public class CheckeredBrush implements Brush {
 
     private final int color1;
     private final int color2;
@@ -14,10 +14,7 @@ public class CheckeredBrush implements Brush{
         this.height = height;
     }
 
-    public void paintPixel(int x, int y) {
-        throw new RuntimeException("I miss the image to write on!");
-    }
-
+    @Override
     public int paint(Pixel pixel) {
         return (xParity(pixel) == yParity(pixel)) ? color1 : color2;
     }

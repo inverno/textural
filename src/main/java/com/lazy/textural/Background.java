@@ -5,14 +5,7 @@ import java.util.List;
 
 public class Background implements Pattern {
 
-    public void paint(Brush brush, int width, int height) {
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                brush.paintPixel(x, y);
-            }
-        }
-    }
-
+    @Override
     public List<Pixel> iterate(int width, int height) {
         List<Pixel> pixels = new ArrayList<>(width * height);
         for (int x = 0; x < width; x++) {

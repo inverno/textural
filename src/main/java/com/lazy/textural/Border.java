@@ -11,21 +11,7 @@ public class Border implements Pattern {
         this.relativeDistanceFromFrame = relativeDistanceFromFrame;
     }
 
-    public void paint(Brush brush, int width, int height) {
-        int xMin = Math.round(width * relativeDistanceFromFrame / 100);
-        int yMin = Math.round(height * relativeDistanceFromFrame / 100);
-        int xMax = width - xMin;
-        int yMax = height - yMin;
-        for (int x = xMin; x <= xMax; x++) {
-            brush.paintPixel(x, yMin);
-            brush.paintPixel(x, yMax);
-        }
-        for (int y = yMin; y <= yMax; y++) {
-            brush.paintPixel(xMin, y);
-            brush.paintPixel(xMax, y);
-        }
-    }
-
+    @Override
     public List<Pixel> iterate(int width, int height) {
         final List<Pixel> pixels = new ArrayList<>();
         int xMin = Math.round(width * relativeDistanceFromFrame / 100);
