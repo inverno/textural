@@ -10,7 +10,7 @@ public class TexturalBehavior {
     @Test
     public void generatesFlatImage() throws Exception {
         int blue = 0xff0000ff;
-        Textural textural = new Textural(new Background(), blue);
+        Textural textural = new Textural(new Background(), new FlatBrush(blue));
         assertColorEquals(blue, textural.generate(100, 100), 100, 100);
     }
 
@@ -44,5 +44,17 @@ public class TexturalBehavior {
         final Textural textural = new Textural(new Background(), violet);
         final Rendering slimRendering = textural.generate(10, 100);
         assertColorEquals(violet, slimRendering, 10, 100);
+    }
+
+    @Test
+    public void generatesCheckeredTexture() throws Exception {
+        final int black = 0xff0000ff;
+        final int yellow = 0xffffff00;
+        final Textural textural = new Textural(new Background(), new CheckeredBrush(black, yellow, 5, 5));
+        final Rendering rendering = textural.generate(20, 20);
+        assertPixelColorEquals(black, rendering, 0, 0);
+        assertPixelColorEquals(black, rendering, 4, 4);
+        assertPixelColorEquals(yellow, rendering, 5, 5);
+        assertPixelColorEquals(yellow, rendering, 9, 9);
     }
 }

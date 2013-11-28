@@ -1,5 +1,8 @@
 package com.lazy.textural;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Background implements Pattern {
 
     public void paint(Brush brush, int width, int height) {
@@ -8,6 +11,16 @@ public class Background implements Pattern {
                 brush.paintPixel(x, y);
             }
         }
+    }
+
+    public List<Pixel> iterate(int width, int height) {
+        List<Pixel> pixels = new ArrayList<>(width * height);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pixels.add(new Pixel(x,y));
+            }
+        }
+        return pixels;
     }
 
 }

@@ -15,4 +15,9 @@ public class ImageAddBrush implements Brush {
     public void paintPixel(int x, int y) {
         targetImage.setRGB(x, y, targetImage.getRGB(x, y) + sourceImage.getRGB(x, y));
     }
+
+    @Override
+    public int paint(Pixel pixel) {
+        return sourceImage.getRGB(pixel);
+    }
 }

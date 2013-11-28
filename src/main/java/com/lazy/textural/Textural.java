@@ -7,28 +7,36 @@ import java.util.List;
 public class Textural {
 
     private Pattern pattern;
-    private int baseColor;
-    private List<Textural> components = new ArrayList<Textural>();
+    private List<Textural> components = new ArrayList<>();
+    private Brush brush;
 
     public Textural() {
-        this(new Background(), 0x00000000);
+        this(new Background(), new FlatBrush(0x00000000));
     }
 
     public Textural(Pattern pattern, int baseColor) {
         this.pattern = pattern;
-        this.baseColor = baseColor;
+        this.brush = new FlatBrush(baseColor);
+    }
+
+    public Textural(Pattern pattern, Brush brush) {
+        this.pattern = pattern;
+        this.brush = brush;
     }
 
     public Rendering generate(int width, int height) {
         final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        final Rendering rendering = new Rendering(image);
         for(Textural component : components) {
             final Rendering componentImage = component.generate(width, height);
             new Background().paint(new ImageAddBrush(image, componentImage), width, height);
         }
         if(components.isEmpty()) {
-            pattern.paint(new FlatBrush(image, baseColor), width, height);
+            for(Pixel pixel : pattern.iterate(width, height)) {
+                rendering.set(pixel, brush.paint(pixel));
+            }
         }
-        return new Rendering(image);
+        return rendering;
     }
 
     public Textural add(Textural other) {

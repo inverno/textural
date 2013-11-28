@@ -13,8 +13,16 @@ public class Rendering {
         this.image = image;
     }
 
+    public void set(Pixel pixel, int color) {
+        image.setRGB(pixel.x, pixel.y, color);
+    }
+
     public int getRGB(int x, int y) {
         return image.getRGB(x, y);
+    }
+
+    public int getRGB(Pixel pixel) {
+        return getRGB(pixel.x, pixel.y);
     }
 
     public void storeAsPNG(String fileName) throws IOException {
