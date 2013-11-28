@@ -11,7 +11,7 @@ public class TexturalBehavior {
     public void generatesFlatImage() throws Exception {
         int blue = 0xff0000ff;
         Textural textural = new Textural(new Background(), blue);
-        assertColorEquals(blue, textural.generate(100, 100));
+        assertColorEquals(blue, textural.generate(100, 100), 100, 100);
     }
 
     @Test
@@ -43,6 +43,6 @@ public class TexturalBehavior {
         final int violet = 0xffff00ff;
         final Textural textural = new Textural(new Background(), violet);
         final Rendering slimRendering = textural.generate(10, 100);
-        assertColorEquals(violet, slimRendering);
+        assertColorEquals(violet, slimRendering, 10, 100);
     }
 }

@@ -3,9 +3,9 @@ package com.lazy.textural;
 import static org.junit.Assert.assertEquals;
 
 public class ImageAssert {
-    public static void assertColorEquals(int color, Rendering image) {
-        for(int x = 0; x < 100; x++) {
-            for(int y = 0; y < 100; y++) {
+    public static void assertColorEquals(int color, Rendering image, int width, int height) {
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
                 assertPixelColorEquals(color, image, x, y);
             }
         }

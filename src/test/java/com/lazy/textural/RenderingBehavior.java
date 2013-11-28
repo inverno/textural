@@ -24,6 +24,6 @@ public class RenderingBehavior {
     public void printsPNG() throws IOException {
         final String transparentFileName = images + "transparent.png";
         new Textural().generate(100, 100).storeAsPNG(transparentFileName);
-        assertColorEquals(0x00000000, new Rendering(ImageIO.read(new FileInputStream(transparentFileName))));
+        assertColorEquals(0x00000000, new Rendering(ImageIO.read(new FileInputStream(transparentFileName))), 100, 100);
     }
 }
